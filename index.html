@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<head>
+	<script>
+		function check() {
+			var value = document.forms['form']['y'].value;
+			value = value.replace(',', '.');
+			if (value == "" || isNaN(value) || value < -5 || value > 5)
+			{
+				highlight();
+				return false;
+			}
+			return true;
+		}
+		function highlight() {
+			var inputbox = document.getElementById('yInput');
+			var alertText = document.getElementById('alertText');
+			inputbox.className = "alerted";
+			alertText.className = "alertText";
+		}
+		function unhighlight() {
+			var inputbox = document.getElementById('yInput');
+			var alertText = document.getElementById('alertText');
+			inputbox.className = "";
+			alertText.className = "invisible";
+		}
+		let ids = ['r1', 'r15', 'r2', 'r25', 'r3'];
+		function unselect()
+		{
+			for (let bid in ids)
+			{
+				document.getElementById(ids[bid]).className = "";
+			}
+
+		}
+		function select(bid, val)
+		{
+			unselect();
+			document.getElementById('r').value = val;
+			document.getElementById(bid).className = "selected";
+		}
+	</script>
+	<style>
+		.signature {
+			text-align: right;
+			padding: 10px;
+			color: #222;
+			font: monospace;
+			font-size: 12px;
+		}
+		p {
+			font: sans-serif;
+			font-size: 14px;
+			font-weight: 500;
+		}
+		select {
+			width: 100%;
+			height: 100%;
+			border-color: rgb(51, 153, 255);
+			border-width: 3px;
+			border-radius: 4px;
+		}
+		input[type="text"].alerted {
+			border-width: 3px !important;
+			border-color: red !important;
+			padding: 0px;
+		}
+		input[type="text"] {
+			width: 100%;
+			border-width: 2px;
+			border-color: rgb(51, 153, 255);
+			border-radius: 4px;
+		}
+		input[type="button"] {
+			width: 100%;
+			height: 100%;
+		}
+		input[type="button"].selected {
+			background-color: rgb(51, 153, 255);
+		}
+		input[type="button"]:hover {
+			background-color: rgb(220, 220, 220);
+		}
+		input[type="button"].selected:hover {
+			background-color: rgb(70, 180, 255);
+		}
+		.invisible {
+			display: none !important;
+		}
+		p.alertText {
+			color: red !important;
+		}
+		input[type="submit"] {
+			border: none;
+			width: 100%;
+			color: white;
+			background-color: rgb(60, 170, 255);
+		}
+		input[type="submit"]:hover {
+			background-color: rgb(51, 153, 255);
+		}
+	</style>
+</head>
+<body>
+<table width="100%">
+	<tr valign="center">
+		<td>
+			<h1>Попадание точки в область</h1>
+		</td>
+		<td class="signature">
+			Лабутина Ксения<br>
+			P3213<br>
+			213008 вариант
+	</tr>
+	<tr><td><form name="form" action="script.php" method="post" onsubmit="return check()">
+		<input type="hidden" id="r" name="r" value="1">
+		<table>
+			<tr><td colspan="2"><img src="areas1.png"></td></tr>
+		<tr>
+			<td valign="center"><p> x: </p></td>
+			<td valign="center"><select name="x">
+			<option selected value="-4">-4</option>
+			<option value="-3">-3</option>
+			<option value="-2">-2</option>
+			<option value="-1">-1</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">-4</option>
+			</select></td>
+		</tr>
+		<tr>
+		<td valign="center"><p> y: </p></td><td><input id="yInput" type="text" name="y" onfocus="unhighlight()"></td><td><p id="alertText" class="invisible">y должно быть числом от -5 до 5</div>
+		</tr>
+		<tr><td><p> r: </p></td><td>
+			<table width="100%" cellpadding="0" cellspacing="0" class = "select"><tr>
+		<td width="20%"><input type="button" value="1" class="selected" id="r1"></td>
+		<td width="20%"><input type="button" value="1.5" id="r15"></td>
+		<td width="20%"><input type="button" value="2" id="r2"></td>
+		<td width="20%"><input type="button" value="2.5" id="r25"></td>
+		<td width="20%"><input type="button" value="3" id="r3"></td>
+		</tr></table></td></tr>
+		<tr><td colspan="2">
+		<input type="submit" name="submit" value="тык"></td></tr>
+		</table>
+
+	</form></td></tr>
+	<script>
+		document.getElementById('r1').addEventListener('click', update1);
+		document.getElementById('r15').addEventListener('click', update15);
+		document.getElementById('r2').addEventListener('click', update2);
+		document.getElementById('r25').addEventListener('click', update25);
+		document.getElementById('r3').addEventListener('click', update3);
+		function update1() {select('r1', 1);}
+		function update15() {select('r15', 1.5);}
+		function update2() {select('r2', 2);}
+		function update25() {select('r25', 2.5);}
+		function update3() {select('r3', 3);}
+	</script>
+</table>
+</body>
